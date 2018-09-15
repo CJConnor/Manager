@@ -3,19 +3,16 @@ function submitLoginForm() {
   var username = document.getElementById("username").value;
   var password = document.getElementById("password").value;
 
-  $.ajax({
-    type: "POST",
-    url: "actions/login.php",
-    data: {
-      "username": username,
-      "password": password
-    },
-    dataType: "json",
-    success: fucntion(data){
-
-    },
-    error: function() {
-
-    }
-  });
+  $.post("actions/login.php",
+     {
+         'username': username,
+         'password': password
+     },
+     function(data, status){
+         if(data == 'success' && status == 'success') {
+           $('#myModal').modal('hide');
+         }else {
+           $('#errorMessage').show();
+         }
+     });
 }

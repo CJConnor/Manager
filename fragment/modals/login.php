@@ -8,21 +8,31 @@
       </div>
 
       <div class="modal-body">
+        <div id="errorMessage" class="alert alert-danger">
+          <strong>Oh no!!</strong> It appears something has gone wrong... please try again
+        </div>
+        <div class="logMod">
+          <form action="#" class="form-horizontal">
 
-        <form action="#" onsubmit="submitForm();" class="form-horizontal">
+            <div class="form-group">
+              <label class="control-label" for="username">Username: </label>
+              <input type="text" name="username" id="username" />
+            </div>
 
-          <div class="form-group">
-            <label class="control-label" for="username">Username: </label>
-            <input type="text" name="username" id="username" />
-          </div>
+            <div class="form-group">
+              <label class="control-label" for="password">Password: </label>
+              <input type="password" name="password" id="password" />
+            </div>
 
-          <div class="form-group">
-            <label class="control-label" for="password">Password: </label>
-            <input type="password" name="password" id="password" />
-          </div>
+          </form>
 
-        </form>
-        
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <div class="form-group">
+          <button class="btn btn-primary" onclick="submitLoginForm();" type="submit">Submit</button>
+        </div>
       </div>
     </div>
 

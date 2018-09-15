@@ -1,0 +1,8 @@
+.logMod {
+  display: flex;
+  justify-content: center;
+}
+
+#errorMessage {
+  display: none;
+}
