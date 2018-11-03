@@ -6,19 +6,13 @@
     ?>
   </head>
   <body>
-    <?php include"fragment/nav.php"; ?>
     <div class="container">
-      <?php include"fragment/modals/login.php" ?>
+      <div class="jumbotron">
+        <img src="_assets/Images/logo/high-res/logo-transparent.png" alt="The manager logo"  />
+      </div>
+      <section class="navbar">
+        <?php include"fragment/nav.php"; ?>
+      </section>
     </div>
-    <script>
-      $(document).ready(function(){
-        $('#myModal').modal('show');
-      });
-
-      $('#myModal').modal({
-        backdrop: 'static',
-        keyboard: false
-      })
-    </script>
   </body>
 </html>

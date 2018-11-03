@@ -1,3 +1,7 @@
+body {
+  background-image: radial-gradient(circle, white, black);
+}
+
 .logMod {
   display: flex;
   justify-content: center;
