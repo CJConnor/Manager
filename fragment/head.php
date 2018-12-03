@@ -7,4 +7,5 @@
 <script src="functions/functions.js"></script>
 <?php
   include_once"classes/dbconnect.php";
+  include"fragment/vars.php";
  ?>

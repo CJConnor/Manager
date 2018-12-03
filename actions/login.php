@@ -22,7 +22,9 @@ if($count == 1) {
   echo "success";
 
 }else {
+
   echo "failed";
+  
 }
 
  ?>
