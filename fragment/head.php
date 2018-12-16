@@ -8,4 +8,6 @@
 <?php
   include_once"classes/dbconnect.php";
   include"fragment/vars.php";
+  include"classes/system.php";
+  include"classes/team.php";
  ?>
