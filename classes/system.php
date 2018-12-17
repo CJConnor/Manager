@@ -131,6 +131,18 @@
             return $result;
         
           }
+
+          public static function getNews($url) {
+
+            $result = file_get_contents($url);
+
+            $json = json_decode($result);
+
+            return $json;
+
+          }
+
+          
     }
 
 ?>
