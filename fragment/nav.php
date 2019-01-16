@@ -12,7 +12,7 @@
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">Home</a></li>
         <li><a href="#">Game</a></li>
-        <li><a href="#">Page 2</a></li>
+        <li><a href="news.php">News</a></li>
         <li><a href="#">Page 3</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">

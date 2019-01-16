@@ -10,4 +10,5 @@
   include"fragment/vars.php";
   include"classes/system.php";
   include"classes/team.php";
+  include"classes/fixtures.php";
  ?>

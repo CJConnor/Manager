@@ -6,10 +6,11 @@
     ?>
   </head>
   <body>
-    <div class="container">
       <section class="navbar">
         <?php include"fragment/nav.php"; ?>
       </section>
-    </div>
+      <div class="container">
+      
+      </div>
   </body>
 </html>
