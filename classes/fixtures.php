@@ -100,7 +100,7 @@ class Fixtures extends System{
 
         for($i = 0; $i < $count; $i++) {
 
-            if($array[$i]->home == $HT && $array[$i]->away == $AT) {
+            if($array[$i]->home == $HT && $array[$i]->away == $AT || $array[$i]->home == $AT && $array[$i]->away == $HT) {
 
                 $c++;
 

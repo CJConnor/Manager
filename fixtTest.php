@@ -6,9 +6,47 @@
         
         <form action="actions/fixtTest.php" method="POST">
         
-            <input type="text" name="HT" placeholder="HT" />
+            <select name="HT">
+                <?php
 
-            <input type="text" name="AT" placeholder="AT" />    
+                    $sql = "SELECT * FROM premier_league";
+                    $result = DB::getCon()->query($sql);
+                    
+                    while($row = $result->fetch_assoc()) {
+
+                        $id = $row['id'];
+                        $team = $row['teams'];
+
+                        ?>
+
+                        <option value='<?=$id?>'><?=$team?></option>
+
+                        <?php
+                    }
+
+                ?>
+            </select>
+            
+            <select name="AT">
+                <?php
+
+                    $sql = "SELECT * FROM premier_league";
+                    $result = DB::getCon()->query($sql);
+                    
+                    while($row = $result->fetch_assoc()) {
+
+                        $id = $row['id'];
+                        $team = $row['teams'];
+
+                        ?>
+                        
+                        <option value='<?=$id?>'><?=$team?></option>
+
+                        <?php
+                    }
+
+                ?>
+            </select>
             
             <input type="submit" />
             

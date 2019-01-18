@@ -11,8 +11,24 @@
     $HT = $_POST['HT'];
     $AT = $_POST['AT'];
 
-    $count = Fixtures::findGameNum($array, $HT, $AT);
+    $c = 0;
+    $game = [];
 
-    echo($count);
+    $count = count($array);
+
+    for($i = 0; $i < $count; $i++) {
+
+        if($array[$i]->home == $HT && $array[$i]->away == $AT) {
+
+            $c++;
+            $game[] = $array[$i];
+
+        }
+
+    }
+
+    echo($c);
+
+    var_dump($game);
 
 ?>
