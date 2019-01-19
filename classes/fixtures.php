@@ -7,6 +7,7 @@ class Fixtures extends System{
     public $away;
     public $score;
     public $datePlayed;
+    public $uid;
 
     public static $tableName = "fixtures";
     public static $columns = ['id', 'home', 'away', 'score', 'datePlayed', 'uid'];
@@ -17,6 +18,7 @@ class Fixtures extends System{
         $this->away = isset($args['away']) ? $args['away'] : "";
         $this->score = isset($args['score']) ? $args['score'] : "";
         $this->datePlayed = isset($args['datePlayed']) ? $args['datePlayed'] : "";
+        $this->uid = isset($args['uid']) ? $args['uid'] : "";
     }
 
 
@@ -71,11 +73,14 @@ class Fixtures extends System{
                         $HT = $fixt[$j]->home;
                         $AT = $fixt[$j]->away;
 
-                        $count = self::findGameNum($fixt, $HT, $id);
+                        $away = Fixtures::findGameNum($fixt, $HT, $id);
 
-                        if($HT != $id && empty($AT) && $count < 2) {
+                        if($HT != $id && empty($AT)) {
 
-                            $fixt[$j]->away = $id;
+                            if($away < 1) {
+
+                                $fixt[$j]->away = $id;
+                            }
 
                         }
 
@@ -87,6 +92,7 @@ class Fixtures extends System{
             }
 
         }
+
 
         return $fixt;
 
@@ -100,7 +106,7 @@ class Fixtures extends System{
 
         for($i = 0; $i < $count; $i++) {
 
-            if($array[$i]->home == $HT && $array[$i]->away == $AT || $array[$i]->home == $AT && $array[$i]->away == $HT) {
+            if($array[$i]->home == $HT && $array[$i]->away == $AT) {
 
                 $c++;
 

@@ -61,7 +61,7 @@
         protected function create() {
             
             $attributes = $this->sanitized_attributes();
-            $sql = "INSERT INTO " . static::$table_name . " (";
+            $sql = "INSERT INTO " . static::$tableName . " (";
             $sql .= join(', ', array_keys($attributes));
             $sql .= ") VALUES ('";
             $sql .= join("', '", array_values($attributes));
@@ -81,7 +81,7 @@
               $attribute_pairs[] = "{$key}='{$value}'";
             }
         
-            $sql = "UPDATE " . static::$table_name . " SET ";
+            $sql = "UPDATE " . static::$tableName . " SET ";
             $sql .= join(', ', $attribute_pairs);
             $sql .= " WHERE id='" . DB::getCon()->escape_string($this->id) . "' ";
             $sql .= "LIMIT 1";
@@ -108,7 +108,7 @@
         
           public function attributes() {
             $attributes = [];
-            foreach(static::$db_columns as $column) {
+            foreach(static::$columns as $column) {
               if($column == 'id') { continue; }
               $attributes[$column] = $this->$column;
             }
@@ -118,7 +118,7 @@
           protected function sanitized_attributes() {
             $sanitized = [];
             foreach($this->attributes() as $key => $value) {
-              $sanitized[$key] = self::$database->escape_string($value);
+              $sanitized[$key] = DB::getCon()->escape_string($value);
             }
             return $sanitized;
           }
