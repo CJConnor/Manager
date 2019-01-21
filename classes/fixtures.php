@@ -24,31 +24,39 @@ class Fixtures extends System{
 
     public static function matchDates() {
 
-        $seasonStart = "2017-08-11";
+        $seasonStart = "2017-08-14";
         $seasonEnd = "2018-05-13";
         $amountOfGames = 38;
 
         $fixt = [];
 
+        $sql = "SELECT id FROM premier_league ORDER BY RAND()";
+        $result = DB::getCon()->query($sql);
+
+        $teamArray = [];
+
+        if($result->num_rows > 0) {
+
+            while($row = $result->fetch_assoc()) {
+
+                $id = $row['id'];
+
+                $teamArray[] = $id;
+
+            }
+
+        }
+
         for($i = 0; $i < 19; $i++) {
 
-            $sql = "SELECT id FROM premier_league ORDER BY RAND()";
-            $result = DB::getCon()->query($sql);
+            foreach($teamArray as $team) {                   
 
-            if($result->num_rows > 0) {
-
-                while($row = $result->fetch_assoc()) {
-
-                    $id = $row['id'];                   
-
-                    $fixtTeam = ['home' => $id];
+                $fixtTeam = ['home' => $team];
 
 
-                    $fixture = new Fixtures($fixtTeam);
+                $fixture = new Fixtures($fixtTeam);
 
-                    array_push($fixt, $fixture);
-
-                }
+                array_push($fixt, $fixture);
 
             }
 
@@ -58,34 +66,56 @@ class Fixtures extends System{
 
         for($i = 0; $i < 19; $i++) {
 
-            $sql = "SELECT id FROM premier_league ORDER BY RAND()";
-            $result = DB::getCon()->query($sql);
-            
+            foreach($teamArray as $team) {
 
-            if($result->num_rows > 0) {
+                for($j = 0; $j < $fixtCount; $j++) {
 
-                while($row = $result->fetch_assoc()) {
+                    $HT = $fixt[$j]->home;
+                    $AT = $fixt[$j]->away;
 
-                    $id = $row['id'];  
-                                  
-                    for($j = 0; $j < $fixtCount; $j++) {
+                    $away = Fixtures::findGameNum($fixt, $HT, $team);
 
-                        $HT = $fixt[$j]->home;
-                        $AT = $fixt[$j]->away;
+                    if($HT != $team && empty($AT)) {
 
-                        $away = Fixtures::findGameNum($fixt, $HT, $id);
+                        if($away < 1) {
 
-                        if($HT != $id && empty($AT)) {
-
-                            if($away < 1) {
-
-                                $fixt[$j]->away = $id;
-                            }
-
+                            $fixt[$j]->away = $team;
                         }
 
                     }
-                   
+
+                }
+
+            }
+
+        }
+
+        $teamDates = [];
+
+        for($i = 0; $i < 19; $i++) {
+
+            foreach($teamArray as $team) {
+
+                for($j = 0; $j < $fixtCount; $j++) {
+
+                    $datePlayed = $fixt[$j]->datePlayed;
+                    $HT = $fixt[$j]->home;
+                    $AT = $fixt[$j]->away;
+
+                    if($j == 0) {
+
+                        $fixt[$j]->datePlayed = $seasonStart;
+
+                        $teamDates[] = [$HT, "H", "", $seasonStart];
+                        $teamDates[] = [$AT, "A", "", $seasonStart];
+
+                    } else {
+
+                        
+
+                    }
+
+                    
 
                 }
 
