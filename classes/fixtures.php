@@ -90,41 +90,47 @@ class Fixtures extends System{
 
         }
 
-        $teamDates = [];
+        $orgFixt = [];
+        $tracker = [];
 
-        for($i = 0; $i < 19; $i++) {
+        for($j = 0; $j < 76; $j++) {
 
-            foreach($teamArray as $team) {
+            $orgFixt[$j] = [];
 
-                for($j = 0; $j < $fixtCount; $j++) {
+            for($i = 0; $i < $fixtCount; $i++) {
 
-                    $datePlayed = $fixt[$j]->datePlayed;
-                    $HT = $fixt[$j]->home;
-                    $AT = $fixt[$j]->away;
+                if($i == 0 || $i == 1 || 5 % $i != 0) {
 
-                    if($j == 0) {
-
-                        $fixt[$j]->datePlayed = $seasonStart;
-
-                        $teamDates[] = [$HT, "H", "", $seasonStart];
-                        $teamDates[] = [$AT, "A", "", $seasonStart];
-
-                    } else {
+                    if($j != 0) {
 
                         
 
                     }
+    
+                    if(!in_array($fixt[$i], $orgFixt[$j])) {
 
-                    
+                        $orgFixt[$j][] = $fixt[$i];
+
+                    } else {
+
+                        continue;
+
+                    }
+    
+                } else {
+
+                    break;
 
                 }
-
+    
             }
 
         }
 
+        
 
-        return $fixt;
+
+        return $orgFixt;
 
     }
 

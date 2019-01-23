@@ -28,24 +28,12 @@
           $link = $article->url;
           $image = $article->urlToImage;
           $author = $article->author;
-          $source = $article->source;
-          $org = $source->name;
-
-          if(empty($author) || substr($author, 0, 4) == "http") {
-
-            $publisher = $org;
-
-          } else {
-
-              $publisher = $author . " at the " . $org;
-
-          }
 
           ?>
           <div class="row">
 
             <div class="col-sm-3">
-              <img src="<?=$image?>" style="height:160px; width:220px;" />
+              <img src="<?=$image?>" style="height:160px; width:200px;" />
             </div>
 
             <div class="col-sm-9">
@@ -53,7 +41,7 @@
               <p><?=$description?></p>
 
               <div class="col-sm-offset-8 col-sm-4">
-                <p>Published at: <?=$publishDate?> by <?=$publisher?></p>
+                <p>Published at: <?=$publishDate?> by <?=$author?></p>
               </div>
             </div>
 
