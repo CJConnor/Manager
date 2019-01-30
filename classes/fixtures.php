@@ -13,12 +13,14 @@ class Fixtures extends System{
     public static $columns = ['id', 'home', 'away', 'score', 'datePlayed', 'uid'];
 
     public function __construct($args=[]) {
+
         $this->id = isset($args['id']) ? $args['id'] : "";
         $this->home = isset($args['home']) ? $args['home'] : "";
         $this->away = isset($args['away']) ? $args['away'] : "";
         $this->score = isset($args['score']) ? $args['score'] : "";
         $this->datePlayed = isset($args['datePlayed']) ? $args['datePlayed'] : "";
         $this->uid = isset($args['uid']) ? $args['uid'] : "";
+
     }
 
 
@@ -92,6 +94,7 @@ class Fixtures extends System{
 
         $orgFixt = [];
         $tracker = [];
+        $array = [];
 
         for($j = 0; $j < 76; $j++) {
 
@@ -101,19 +104,23 @@ class Fixtures extends System{
 
                 if($i == 0 || $i == 1 || 5 % $i != 0) {
 
-                    if($j != 0) {
-
-                        
-
-                    }
-    
-                    if(!in_array($fixt[$i], $orgFixt[$j])) {
+                    if(empty($tracker)) {
 
                         $orgFixt[$j][] = $fixt[$i];
+                        $tracker[] = ["home" => $fixt[$i]->home, "away" => $fixt[$i]->away, "element" => $j];
 
                     } else {
 
-                        continue;
+                        $gameCheck = self::gameCheck($tracker, $orgFixt, $j, $fixt[$i]);
+
+                        $array[] = [$gameCheck, $fixt[$i]];
+
+                        if($gameCheck == "success") {
+
+                            $orgFixt[$j][] = $fixt[$i];
+                            $tracker[] = ["home" => $fixt[$i]->home, "away" => $fixt[$i]->away, "element" => $j];
+
+                        }
 
                     }
     
@@ -128,9 +135,121 @@ class Fixtures extends System{
         }
 
         
-
+        //var_dump($array);
 
         return $orgFixt;
+
+    }
+
+    public static function check_if_game_exists($tracker, $fixture) {
+
+        foreach($tracker as $tracked) {
+
+            if($tracked['home'] == $fixture->home && $tracked['away'] == $fixture->away) {
+
+                return(false);
+
+            } elseif($tracked['home'] == $fixture->away && $tracked['away'] == $fixture->home) {
+
+                $calc = ($tracked['element'] / 76) * 100;
+
+                if($calc >= 50) {
+
+                    return(true);
+
+                } else {
+
+                    return(false);
+
+                }
+
+            }
+
+        }
+
+    }
+
+    public static function gameCheck($tracker, $orgFixt, $turn, $fixture) {
+
+        $check_if_game_exists = self::check_if_game_exists($tracker, $fixture);
+
+        // $newTurn = $turn - 1;
+
+        // foreach($tracker as $tracked) {
+
+        //     if($tracked['home'] == $fixture->home && $tracked['away'] == $fixture->away) {
+
+        //         return("Game Already Exists");
+
+        //     } elseif($tracked['home'] == $fixture->away && $tracked['away'] == $fixture->home) {
+
+        //         $calc = ($tracked['element'] / 76) * 100;
+
+                
+
+        //         if($calc >= 50) {
+
+        //             return("success");
+
+        //             foreach($orgFixt[$turn] as $fix) {
+
+        //                 if($fix->home == $fixture->home || $fix->away == $fixture->home || $fix->home == $fixture->away || $fix->away == $fixture->home) {
+
+        //                     return("Already Played Today");
+
+        //                 }
+
+        //             }
+
+        //             foreach($orgFixt[$newTurn] as $fix) {
+
+        //                 if($fix->home == $fixture->home || $fix->away == $fixture->home || $fix->home == $fixture->away || $fix->away == $fixture->home) {
+
+        //                     return("Already Played Yesterday");
+
+        //                 }
+
+        //             }
+
+
+        //         } else {
+
+        //             return("Not 50 yet");
+
+        //         }
+
+        //     } else {
+
+        //         foreach($orgFixt[$turn] as $fix) {
+
+        //             if($fix->home == $fixture->home || $fix->away == $fixture->home || $fix->home == $fixture->away || $fix->away == $fixture->home) {
+
+        //                 return("Already Played Today");
+
+        //             }
+
+        //         }
+
+        //         foreach($orgFixt[$newTurn] as $fix) {
+
+        //             if($fix->home == $fixture->home || $fix->away == $fixture->home || $fix->home == $fixture->away || $fix->away == $fixture->home) {
+
+        //                 return("Already Played Yesterday");
+
+        //             }
+
+        //         }
+                
+        //     }
+
+        //}
+
+        if($check_if_game_exists) {
+            
+            return("success");
+
+        }
+        
 
     }
 
