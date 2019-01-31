@@ -105,20 +105,25 @@ class Fixtures extends System{
                 if($i == 0 || $i == 1 || 5 % $i != 0) {
 
                     if(empty($tracker)) {
-
-                        $orgFixt[$j][] = $fixt[$i];
-                        $tracker[] = ["home" => $fixt[$i]->home, "away" => $fixt[$i]->away, "element" => $j];
+                        
+                        // Add Game To Organised Array And Log It
+                        self::addGameAndTracker($orgFixt[$j], $tracker, $fixt[$i], $j);
+                        // $orgFixt[$j][] = $fixt[$i];
+                        // $tracker[] = ["home" => $fixt[$i]->home, "away" => $fixt[$i]->away, "element" => $j];
 
                     } else {
 
+                        // Checks if game has already been added or if the opposite game has been added within 38 games 
                         $gameCheck = self::gameCheck($tracker, $orgFixt, $j, $fixt[$i]);
 
-                        $array[] = [$gameCheck, $fixt[$i]];
+                        // $array[] = [$gameCheck, $fixt[$i]];
 
                         if($gameCheck == "success") {
-
-                            $orgFixt[$j][] = $fixt[$i];
-                            $tracker[] = ["home" => $fixt[$i]->home, "away" => $fixt[$i]->away, "element" => $j];
+                            
+                            // Add Game To Organised Array And Log It
+                            self::addGameAndTracker($orgFixt[$j], $tracker, $fixt[$i], $j);
+                            // $orgFixt[$j][] = $fixt[$i];
+                            // $tracker[] = ["home" => $fixt[$i]->home, "away" => $fixt[$i]->away, "element" => $j];
 
                         }
 
@@ -140,19 +145,33 @@ class Fixtures extends System{
         return $orgFixt;
 
     }
+    
+    public static function addGameAndTracker($orgFixt, $tracker, $fixture, $turn) {
+        
+        $orgFixt[] = $fixture;
+        $tracker[] = ["home" => $fixture->home, "away" => $fixture->away, "element" => $turn];
+        
+    }
 
     public static function check_if_game_exists($tracker, $fixture) {
 
         foreach($tracker as $tracked) {
-
-            if($tracked['home'] == $fixture->home && $tracked['away'] == $fixture->away) {
+            
+            $trackedHome = $tracked['home'];
+            $trackedAway = $tracked['away'];
+            $trackedElement = $tracked['element'];
+            
+            //Checks whether or not game already exists 
+            if($trackedHome == $fixture->home && $trackedAway == $fixture->away) {
 
                 return(false);
 
-            } elseif($tracked['home'] == $fixture->away && $tracked['away'] == $fixture->home) {
+            // Checks whether the opposite game exists
+            } elseif($trackedHome == $fixture->away && $trackedAway == $fixture->home) {
 
-                $calc = ($tracked['element'] / 76) * 100;
-
+                $calc = ($trackedElement / 76) * 100;
+                
+                //If opposite game exists then see if it was more than 38 games ago 
                 if($calc >= 50) {
 
                     return(true);
@@ -163,6 +182,7 @@ class Fixtures extends System{
 
                 }
 
+            //If teams have never played each other then return true
             } else {
                 
                 return(true);  
