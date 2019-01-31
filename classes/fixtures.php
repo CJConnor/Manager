@@ -55,7 +55,6 @@ class Fixtures extends System{
 
                 $fixtTeam = ['home' => $team];
 
-
                 $fixture = new Fixtures($fixtTeam);
 
                 array_push($fixt, $fixture);
@@ -118,7 +117,7 @@ class Fixtures extends System{
 
                         // $array[] = [$gameCheck, $fixt[$i]];
 
-                        if($gameCheck == "success") {
+                        if($gameCheck == true) {
                             
                             // Add Game To Organised Array And Log It
                             self::addGameAndTracker($orgFixt[$j], $tracker, $fixt[$i], $j);
@@ -146,14 +145,46 @@ class Fixtures extends System{
 
     }
     
-    public static function addGameAndTracker($orgFixt, $tracker, $fixture, $turn) {
+    private static function addGameAndTracker($orgFixt, $tracker, $fixture, $turn) {
         
         $orgFixt[] = $fixture;
         $tracker[] = ["home" => $fixture->home, "away" => $fixture->away, "element" => $turn];
         
     }
+    
+    private static function check_weeks_games($orgFixt, $fixture, $turn) {
+        
+        $previousDay = $turn - 1;
+        
+        // Checks if team had already been added to this game day
+        foreach($orgFixt[$turn] as $gameDay) {
+            
+            if($gameDay->home == $fixture->home || $gameDay->away == $fixture->away || $gameDay->home == $fixture->away || $gameDay->away == $fixture->home ) {
+                
+                return(false);
+                
+            }
+            
+        }
+        
+        // Checks if team had played earlier in the week too
+        foreach($orgFixt[$previousDay] as $lastGameDay) {
+            
+            if($lastGameDay->home == $fixture->home || $lastGameDay->away == $fixture->away || $lastGameDay->home == $fixture->away || $lastGameDay->away == $fixture->home ) {
+                
+                return(false);
+                
+            }
+            
+        }
+        
+        return(true);
+        
+        
+        
+    }
 
-    public static function check_if_game_exists($tracker, $fixture) {
+    private static function check_if_game_exists($tracker, $fixture) {
 
         foreach($tracker as $tracked) {
             
@@ -161,7 +192,7 @@ class Fixtures extends System{
             $trackedAway = $tracked['away'];
             $trackedElement = $tracked['element'];
             
-            //Checks whether or not game already exists 
+            // Checks whether or not game already exists 
             if($trackedHome == $fixture->home && $trackedAway == $fixture->away) {
 
                 return(false);
@@ -171,7 +202,7 @@ class Fixtures extends System{
 
                 $calc = ($trackedElement / 76) * 100;
                 
-                //If opposite game exists then see if it was more than 38 games ago 
+                // If opposite game exists then see if it was more than 38 games ago 
                 if($calc >= 50) {
 
                     return(true);
@@ -182,7 +213,7 @@ class Fixtures extends System{
 
                 }
 
-            //If teams have never played each other then return true
+            // If teams have never played each other then return true
             } else {
                 
                 return(true);  
@@ -193,9 +224,11 @@ class Fixtures extends System{
 
     }
 
-    public static function gameCheck($tracker, $orgFixt, $turn, $fixture) {
+    private static function gameCheck($tracker, $orgFixt, $turn, $fixture) {
 
         $check_if_game_exists = self::check_if_game_exists($tracker, $fixture);
+        
+        $check_week = self::check_weeks_games($orgFixt, $fixture, $turn);
 
         // $newTurn = $turn - 1;
 
@@ -268,16 +301,16 @@ class Fixtures extends System{
 
         //}
 
-        if($check_if_game_exists) {
+        if($check_if_game_exists == true && $check_week == true) {
             
-            return("success");
+            return(true);
 
         }
         
 
     }
 
-    public static function findGameNum($array, $HT, $AT) {
+    private static function findGameNum($array, $HT, $AT) {
 
         $c = 0;
 
