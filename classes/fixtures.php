@@ -163,6 +163,10 @@ class Fixtures extends System{
 
                 }
 
+            } else {
+                
+                return(true);  
+                
             }
 
         }
