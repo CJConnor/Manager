@@ -26,16 +26,16 @@ class Fixtures extends System{
 
     public static function matchDates() {
 
-        $seasonStart = "2017-08-14";
+        /*$seasonStart = "2017-08-14";
         $seasonEnd = "2018-05-13";
-        $amountOfGames = 38;
+        $amountOfGames = 38;*/
 
-        $fixt = [];
+        $fixt = array();
 
         $sql = "SELECT id FROM premier_league ORDER BY RAND()";
         $result = DB::getCon()->query($sql);
 
-        $teamArray = [];
+        $teamArray = array();
 
         if($result->num_rows > 0) {
 
@@ -90,10 +90,69 @@ class Fixtures extends System{
             }
 
         }
+        
+        $tracker  = array();
+        $newArray = array();
+        
+        for($i = 0; $i < 38; $i++) {
+         
+            $newArray[] = array(["", "", "", "", ""], ["", "", "", "", ""]);
+            
+        }
+        
+        //Each newArray element is equal to a week worth of game time
+        
+        foreach($newArray as $element) {
+            
+            foreach($element as $gameSlot) {
+             
+                for($i = 0; $i < $fixtCount; $i++) {
+                    
+                    $fixture = $fixt[$i];
+                    $HT = $fixture->HT;
+                    $AT = $fixture->AT;
+                 
+                    //Check if game is eligible
+                    $weekCheck = Fixtures::weekCheck();
+                    $gameExistCheck = Fixtures::gameExistCheck();
+                    $alternateGames = Fixtures::alternateGames();
+                    
+                    if($weekCheck == true && $gameExistCheck == true && $alternateGames == true) {
+                     
+                        //Add fixture to game slot and tracker
+                        $gameSlot = $fixture;
+                        $tracker  = $fixture;
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        }
 
         return($fixt);
 
     }
+    
+    private static function weekCheck() {
+        //Check to make sure the teams haven't already played that week
+        //return true is everything is okay
+            
+    }
+    
+    private static function gameExistCheck() {
+        //Check to make sure the game doesn't already exist
+        //return true is everything is okay
+        
+    }
+    
+    private static function alternateGames() {
+        //Check to make sure that the same game but not at home or away doesn' already exist
+        //return true is everything is okay
+        
+    }
+    
 
     private static function findGameNum($array, $HT, $AT) {
 
