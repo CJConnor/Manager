@@ -102,54 +102,101 @@ class Fixtures extends System{
         
         //Each newArray element is equal to a week worth of game time
         
-        foreach($newArray as $element) {
+        foreach($newArray as $week) {
             
-            foreach($element as $gameSlot) {
-             
-                for($i = 0; $i < $fixtCount; $i++) {
+            foreach($week as $day) {
+
+                foreach($day as $gameSlot) {
+
+                    for($i = 0; $i < $fixtCount; $i++) {
                     
-                    $fixture = $fixt[$i];
-                    $HT = $fixture->HT;
-                    $AT = $fixture->AT;
-                 
-                    //Check if game is eligible
-                    $weekCheck = Fixtures::weekCheck();
-                    $gameExistCheck = Fixtures::gameExistCheck();
-                    $alternateGames = Fixtures::alternateGames();
-                    
-                    if($weekCheck == true && $gameExistCheck == true && $alternateGames == true) {
+                        $fixture = $fixt[$i];
+                        $HT = $fixture->HT;
+                        $AT = $fixture->AT;
                      
-                        //Add fixture to game slot and tracker
-                        $gameSlot = $fixture;
-                        $tracker  = $fixture;
+                        //Check if game is eligible
+                        $weekCheck = Fixtures::weekCheck($week, $HT, $AT);
+                        $gameExistCheck = Fixtures::gameExistCheck($tracker, $HT, $AT);
+                        $alternateGames = Fixtures::alternateGames($tracker, $HT, $AT);
+                        
+                        if($weekCheck == true && $gameExistCheck == true && $alternateGames == true) {
+                         
+                            //Add fixture to game slot and tracker
+                            $gameSlot = $fixture;
+                            $tracker  = $fixture;
+                            
+                        }
                         
                     }
-                    
+
                 }
+             
                 
             }
             
         }
 
-        return($fixt);
+        return($newArray);
 
     }
     
-    private static function weekCheck() {
+    private static function weekCheck($week, $HT, $AT) {
         //Check to make sure the teams haven't already played that week
-        //return true is everything is okay
+        //return true if everything is okay
+        foreach($week as $day) {
+
+            foreach($day as $game) {
+
+                if($game->HT == $HT || $game->AT == $HT) {
+
+                    return false; 
+
+                } else if($game->HT == $AT || $game->AT == $AT) {
+
+                    return false;
+
+                }
+
+            }
+
+        }
+
+        return true;
             
     }
     
-    private static function gameExistCheck() {
+    private static function gameExistCheck($tracker, $HT, $AT) {
         //Check to make sure the game doesn't already exist
         //return true is everything is okay
+        foreach($tracker as $game) {
+
+            if($game->HT == $HT && $game->AT == $AT) {
+
+                return false;
+
+            }
+
+        }
+
+        return true;
         
     }
     
-    private static function alternateGames() {
-        //Check to make sure that the same game but not at home or away doesn' already exist
+    private static function alternateGames($tracker, $HT, $AT) {
+        //Check to make sure that the same game but not at home or away doesn't already exist
         //return true is everything is okay
+
+        foreach($tracker as $game) {
+
+            if($game->HT == $AT && $game->AT == $HT) {
+
+                return false;
+
+            }
+
+        }
+
+        return true;
         
     }
     
