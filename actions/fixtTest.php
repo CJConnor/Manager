@@ -22,7 +22,7 @@
 
             var_dump($array);
         ?>
-        <!--<div class="container">
+        <div class="container">
 
                     <table class="table table-striped table-bordered">
 
@@ -41,42 +41,47 @@
 
                             <?php
 
-                                
-                                
 
-                                //  $arrayCount = count($array);
+                                 $arrayCount = count($array);
 
-                                //  echo$arrayCount;
-                                //  $sql = "SELECT * FROM premier_league";
-                                //  $result = DB::getCon()->query($sql);
-                                //  $count = [];
+                                 echo$arrayCount;
+                                 $sql = "SELECT * FROM premier_league";
+                                 $result = DB::getCon()->query($sql);
+                                 $count = [];
 
-                                //  while($row = $result->fetch_assoc()) {
+                                 while($row = $result->fetch_assoc()) {
 
-                                //      $id = $row['id'];
-                                //      $name = $row['teams'];
+                                     $id = $row['id'];
+                                     $name = $row['teams'];
                                     
-                                //      $count[$id] = ["home" => 0, "away" => 0];
+                                     $count[$id] = ["home" => 0, "away" => 0];
 
-                                //      for($i = 0; $i < $arrayCount; $i++) {
+                                     for($i = 0; $i < $arrayCount; $i++) {
 
-                                //          if($array[$i]->home == $id) {
+                                         if($array[$i]->home == $id) {
 
-                                //              $count[$id]["home"]++;
+                                             $count[$id]["home"]++;
 
-                                //          } else if($array[$i]->away == $id) {
+                                         } else if($array[$i]->away == $id) {
 
-                                //              $count[$id]["away"]++;
+                                             $count[$id]["away"]++;
 
-                                //          }
+                                         }
 
-                                //      }
+                                    }
+
 
                                     ?>
+
+                                    <tr>
+                                        <td><?=$name?></td>
+                                        <td><?=$count[$id]['home']?></td>
+                                        <td><?=$count[$id]['away']?></td>
+                                        <td><?=$count[$id]['home'] + $count[$id]['away']?></td>
                                     
                                     <?php
 
-                                //}
+                                }
 
                             ?>
 
@@ -84,7 +89,7 @@
 
                             </table>
 
-        </div>-->
+        </div>
 
     </body>
 

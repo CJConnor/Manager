@@ -49,7 +49,7 @@ class Fixtures extends System{
 
         }
 
-        for($i = 0; $i < 19; $i++) {
+        for($i = 0; $i < 2; $i++) {
 
             foreach($teamArray as $team) {                   
 
@@ -65,7 +65,7 @@ class Fixtures extends System{
 
         $fixtCount = count($fixt);
 
-        for($i = 0; $i < 19; $i++) {
+        for($i = 0; $i < 2; $i++) {
 
             foreach($teamArray as $team) {
 
@@ -74,11 +74,17 @@ class Fixtures extends System{
                     $HT = $fixt[$j]->home;
                     $AT = $fixt[$j]->away;
 
-                    $away = Fixtures::findGameNum($fixt, $HT, $team);
+                    $away = Fixtures::teamCheck($fixt, $HT, $team);
+                    $htGameCount = Fixtures::findHomeGameNum($fixt, $team);
+                    $atGameCount = Fixtures::findAwayGameNum($fixt, $team);
+
+                    $totalCount = $htGameCount + $atGameCount;
+
+                    #echo "*" . $atGameCount;
 
                     if($HT != $team && empty($AT)) {
 
-                        if($away < 1) {
+                        if($away == true && $atGameCount < 2 && $totalCount < 4) {
 
                             $fixt[$j]->away = $team;
                         }
@@ -91,52 +97,9 @@ class Fixtures extends System{
 
         }
         
-        $tracker  = array();
-        $newArray = array();
-        
-        for($i = 0; $i < 38; $i++) {
-         
-            $newArray[] = array(["", "", "", "", ""], ["", "", "", "", ""]);
-            
-        }
-        
-        //Each newArray element is equal to a week worth of game time
-        
-        foreach($newArray as $week) {
-            
-            foreach($week as $day) {
+    
 
-                foreach($day as $gameSlot) {
-
-                    for($i = 0; $i < $fixtCount; $i++) {
-                    
-                        $fixture = $fixt[$i];
-                        $HT = $fixture->HT;
-                        $AT = $fixture->AT;
-                     
-                        //Check if game is eligible
-                        $weekCheck = Fixtures::weekCheck($week, $HT, $AT);
-                        $gameExistCheck = Fixtures::gameExistCheck($tracker, $HT, $AT);
-                        $alternateGames = Fixtures::alternateGames($tracker, $HT, $AT);
-                        
-                        if($weekCheck == true && $gameExistCheck == true && $alternateGames == true) {
-                         
-                            //Add fixture to game slot and tracker
-                            $gameSlot = $fixture;
-                            $tracker  = $fixture;
-                            
-                        }
-                        
-                    }
-
-                }
-             
-                
-            }
-            
-        }
-
-        return($newArray);
+        return($fixt);
 
     }
     
@@ -200,16 +163,53 @@ class Fixtures extends System{
         
     }
     
+    private static function teamCheck($fixt, $HT, $AT) {
 
-    private static function findGameNum($array, $HT, $AT) {
-
-        $c = 0;
-
-        $count = count($array);
+        $count = count($fixt);
 
         for($i = 0; $i < $count; $i++) {
 
-            if($array[$i]->home == $HT && $array[$i]->away == $AT) {
+            if($fixt[$i]->home == $HT && $fixt[$i]->away == $AT) {
+
+                return false;
+
+            }
+
+        }
+
+        return true;
+
+    }
+
+    private static function findAwayGameNum($fixt, $team) {
+
+        $c = 0;
+
+        $count = count($fixt);
+
+        for($i = 0; $i < $count; $i++) {
+
+            if($fixt[$i]->away == $team) {
+
+                $c++;
+
+            }
+
+        }
+
+        return $c;
+
+    }
+
+    private static function findHomeGameNum($fixt, $team) {
+
+        $c = 0;
+
+        $count = count($fixt);
+
+        for($i = 0; $i < $count; $i++) {
+
+            if($fixt[$i]->home == $team) {
 
                 $c++;
 
