@@ -70,7 +70,7 @@
             if($result) {
               $this->id = DB::getCon()->insert_id;
             }
-            return $result;
+            return $sql;
           }
         
           protected function update() {
@@ -91,11 +91,14 @@
         
           public function save() {
             
-            if(isset($this->id)) {
-              return $this->update();
+            if(!empty($this->id)) {
+              $this->update();
+              return($this->id);
             } else {
-              return $this->create();
+              $this->create();
             }
+
+            
           }
         
           public function merge_attributes($args=[]) {
@@ -144,5 +147,6 @@
 
           
     }
+
 
 ?>

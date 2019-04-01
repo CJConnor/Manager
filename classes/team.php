@@ -1,7 +1,5 @@
 <?php
 
-require_once"dbconnect.php";
-
 class Team extends System {
 
 public $id;
