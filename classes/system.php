@@ -1,5 +1,6 @@
 <?php
 
+
     class System {
 
         public static $tableName = "";

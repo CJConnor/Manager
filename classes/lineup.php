@@ -1,4 +1,5 @@
 <?php
+
 class LineUp extends System {
 
     public $id;

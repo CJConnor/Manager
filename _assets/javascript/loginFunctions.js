@@ -25,10 +25,13 @@ function submitLoginForm() {
 
 function confirmPassword(password, password1) {
 
-  if(password != password1) {
-    //Display Error Message
+  let originalPassword = $("#password").val();
+  let conPassword      = $("#conPass").val();
+
+  if(originalPassword != conPassword) {
+    $("#errorPass").text("Passwords do not match!!");
   } else {
-   //Show a tick?
+    $("#errorPass").text("Passwords do match!!")
   }
 
 }
