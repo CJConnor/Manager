@@ -15,8 +15,8 @@
                 <div class="row justify-content-center">
 
 
-                    <button class="col-sm-3 butn" type="button" onclick="setBtn(1); return false; submit(this);">
-                        <div class="innerBtn">
+                    <button class="col-sm-3 butn" type="button" onclick="setBtn(1); return false;">
+                        <div class="butn" style="height: 100px;">
                             <div class="cnt">
                                 <i class="fas fa-fist-raised icon"></i>
                                 <br />
@@ -27,8 +27,8 @@
 
                     <div class="col-sm-1"></div>
 
-                    <button class="col-sm-3 butn" type="button" onclick="setBtn(2); return false; submit(this);">
-                        <div class="innerBtn">
+                    <button class="col-sm-3 butn" type="button" onclick="setBtn(2); return false;">
+                        <div class="butn" style="height: 100px;">
                             <div class="cnt">
                                 <i class="fas fa-balance-scale icon"></i>
                                 <br />
@@ -39,8 +39,8 @@
 
                     <div class="col-sm-1"></div>
 
-                    <button class="col-sm-3 butn" type="button" onclick="setBtn(3, this); return false; ">
-                        <div class="innerBtn">
+                    <button class="col-sm-3 butn" type="button" onclick="setBtn(3); return false; ">
+                        <div class="butn" style="height: 100px;">
                             <div class="cnt">
                                 <i class="fas fa-shield-alt icon"></i>
                                 <br />
@@ -54,35 +54,32 @@
                 <input type="hidden" id="attr" />
 
             </form>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                    <button class="btn btn-primary" type="submit" onclick="submit(this);">Submit</button>
+            </div>
+            
         </div>
         
       </div>
     </div>
 </modal>
 
-<script>
-
-    
-
-</script>
-
 <style>
 
     .butn {
-        border: 1px solid black;
+        border: 3px solid skyblue;
+        color: skyblue;
         border-radius: 5px;
         background-color: white;
         padding: 5px;
     }
 
-    .innerBtn {
-        border: 1px solid black; 
-        border-radius: 5px; 
-        background-color: white; 
-        padding: 5px; 
-        height: 100px; 
-        margin: 0 auto; 
-        text-align: center;
+    .butn:hover, .butn:focus {
+        border-color: white;
+        color:white;
+        background-color: skyblue;
     }
 
     .cnt {

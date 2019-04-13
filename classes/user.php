@@ -11,8 +11,10 @@
     public $dob;
     public $age;
     public $favTeam;
-    public $admin;
     public $status;
+    public $admin;
+    
+    
    
     public static $tableName = "users";
     public static $columns   = ['id', 'username', 'password', 'email', 'forename', 'surname', 'dob', 'age', 'favTeam', 'status', 'admin'];
@@ -28,8 +30,9 @@
         $this->dob      = isset($args['dob']) ? $args['dob'] : "0000-00-00";
         $this->age      = isset($args['age']) ? $args['age'] : "";
         $this->favTeam  = isset($args['favTeam']) ? $args['favTeam'] : "";
-        $this->admin    = isset($args['admin']) ? $args['admin'] : 0;
         $this->status   = isset($args['status']) ? $args['status'] : "Y";
+        $this->admin    = isset($args['admin']) ? $args['admin'] : 0;
+        
       
     }
 		

@@ -1,14 +1,6 @@
 <?php include("fragment/head.php"); ?>
 
     <body style="background-color: #eee;">
-
-        <div class="jumbotron jumbotron-fluid">
-            <div class="container">
-                <h1>Registration Form Template</h1> 
-                <p>(Logo or multi-media should go here...)</p> 
-            </div>
-        </div>
-
         <div class="container">
             
             <?php include("fragment/login/register_p1.php"); ?>
@@ -20,8 +12,6 @@
             <?php include("fragment/login/register_p4.php"); ?>
 
             <?php include("fragment/login/form.html"); ?>
-            
-            <button id="hi">Click Here</button>
 
         </div>
 
@@ -30,10 +20,6 @@
     <script>
         $(document).ready(function(){
             $("#reg_p1").modal({backdrop: 'static', keyboard: false});
-
-            $("#hi").click(function(){
-                $("#reg_p4").modal();
-            });
         });
 
         function confirmPassword() {
@@ -90,7 +76,7 @@
                         $('#sname').val(elementVal);
                     else if (elementId == "dob")
                         $('#db').val(elementVal);
-                    else if (elementId == "ag")
+                    else if (elementId == "age")
                         $('#ag').val(elementVal);
                     else if (elementId == "mname")
                         $('#manager').val(elementVal);
@@ -105,7 +91,7 @@
                 let username = $('#uname').val();
                 let password = $('#pwd').val();
                 let forename = $('#fname').val();
-                let surename = $('#sname').val();
+                let surname = $('#sname').val();
                 let age      = $('#ag').val();
                 let dob      = $('#db').val();
                 let email    = $('#em').val();
@@ -114,20 +100,30 @@
                 let manAttr  = $('#manAttr').val();
 
                 $.post("actions/login/register.php", {
-                    username: "username",
-                    password: "password",
-                    forename: "forename",
-                    surename: "surname",
-                    age: "age",
-                    dob: "dob",
-                    email: "email",
-                    team: "team",
-                    manager: "manager",
-                    manAttr: "manAttr"
+                    "username": username,
+                    "password": password,
+                    "forename": forename,
+                    "surname": surname,
+                    "age": age,
+                    "dob": dob,
+                    "email": email,
+                    "favTeam": team,
+                    "name": manager,
+                    "managerAttribute": manAttr
                     },
                     function(data){
-                        alert(data);
-                });
+                        if (data == "success") {
+                            Swal.fire({
+                                type: 'success',
+                                title: 'You Have Been Registered!!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            }).then(() => {
+                                window.location.href = "gameDashboard.php";
+                            })
+                        }
+                    }
+                );
 
             }
 
@@ -145,7 +141,6 @@
 
         function setBtn(value) {
             $('#attr').val(value); 
-            submit(this);
         }
     </script>
 

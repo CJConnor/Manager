@@ -71,7 +71,7 @@
             if($result) {
               $this->id = DB::getCon()->insert_id;
             }
-            return $sql;
+            return $this->id;
           }
         
           protected function update() {
@@ -96,7 +96,7 @@
               $this->update();
               return($this->id);
             } else {
-              $this->create();
+              return($this->create());
             }
 
             

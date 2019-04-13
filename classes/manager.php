@@ -17,7 +17,7 @@
             $this->name = isset($args['name']) ? $args['name'] : "";
             $this->managerAttribute = isset($args['managerAttribute']) ? $args['managerAttribute'] : 0;
             $this->userid = isset($args['userid']) ? $args['userid'] : 0;
-            $this->date = isset($args['date']) ? $args['date'] : "0000-00-00";
+            $this->date = isset($args['date']) ? $args['date'] : date("Y-m-d");
             
         }
 

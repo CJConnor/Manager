@@ -1,20 +1,23 @@
 <?php
 
-    include("../classes/dbconnect.php");
-    include("../classes/system.php");
-    include("../classes/user.php");
+    include("../../classes/dbconnect.php");
+    include("../../classes/system.php");
+    include("../../classes/user.php");
+    include("../../classes/manager.php");
 
-    $args = $_POST;
+    $user    = new User($_POST);
+    $userid  = $user->save();
 
-    $email = $args['email'];
+    $_POST['userid'] = $userid;
 
-    $query = "email = '$email'";
-
-    $check = User::checkIfUserExists($query);
-
-    if($check == 0)
-        $user = User::createUser($args);
+    $manager = new Manager($_POST);
+    $manid   = $manager->save();
+    
+    if (!empty($userid) && !empty($manid))
+        echo("success");
     else
-        echo("fail");
+        echo("error");
 
+
+    
 ?>
