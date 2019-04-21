@@ -24,11 +24,17 @@
 
         function confirmPassword() {
 
-            let origPassword = $('#password').val();
-            let conPassword = $('#conPass').val();
+            let origPassword = $('#password');
+            let conPassword  = $('#conPass');
+            let errorSlot    = $('#error');
 
-            if(origPassword != conPassword) {
-                alert("passwords not the same");
+            if(origPassword.val() != conPassword.val()) {
+                Swal.fire({
+                    type: 'error',
+                    title: 'Oops...',
+                    text: 'Passwords Do Not Match!'
+                });
+                return "N";
             }
 
         }
@@ -54,12 +60,22 @@
 
                 for (let i = 0, element; element = elements[i++];) {
 
-                    let elementId = element.id;
+                    let elementId  = element.id;
                     let elementVal = element.value;
 
                     if (element.value === "" && formId != "4") {
-                        alert(`${elementId} is empty`);
+                        Swal.fire({
+                            type: 'error',
+                            title: 'Oops...',
+                            text: `${elementId} is empty`
+                        });
                         return false;
+                    }
+
+                    if(formId == "1") {
+                        if (confirmPassword() == "N") {
+                            return false;
+                        }
                     }
 
                     if (elementId == "username")
@@ -91,7 +107,7 @@
                 let username = $('#uname').val();
                 let password = $('#pwd').val();
                 let forename = $('#fname').val();
-                let surname = $('#sname').val();
+                let surname  = $('#sname').val();
                 let age      = $('#ag').val();
                 let dob      = $('#db').val();
                 let email    = $('#em').val();

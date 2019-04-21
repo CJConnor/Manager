@@ -129,14 +129,14 @@
         
           public function delete() {
             $sql = "DELETE FROM " . static::$table_name . " ";
-            $sql .= "WHERE id='" . DB::getCon()($this->id) . "' ";
+            $sql .= "WHERE id='" . ($this->id) . "' ";
             $sql .= "LIMIT 1";
             $result = DB::getCon()->query($sql);
             return $result;
         
           }
 
-          public static function getNews($url) {
+          public static function getJsonFile($url) {
 
             $result = file_get_contents($url);
 
@@ -144,6 +144,30 @@
 
             return $json;
 
+          }
+
+          public static function copyFile($sourceFile, $newFileLocation, $filename) {
+            
+            $newFile = $newFileLocation . $filename;
+
+            $copy = copy($sourceFile, $newFile);
+
+            if ($copy) {
+
+              return $filename;
+
+            } else {
+
+              return "error";
+
+            }
+      
+          }
+
+          public static function deleteFle($path) {
+
+            return unlink($path);
+            
           }
 
           

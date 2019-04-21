@@ -1,4 +1,4 @@
-
-#errorMessage {
-  display: none;
+.btn-primary {
+  background-color: skyblue;
+  border-color: skyblue;
 }

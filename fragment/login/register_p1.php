@@ -14,23 +14,24 @@
 
                 <div class="form-group">
                     <label for="username">Username: </label>
-                    <input type="text" class="form-control" name="username" id="username" />
+                    <input type="text" class="form-control" name="username" id="username" required/>
                 </div>
 
 
                 <div class="form-group">
                     <label for="password">Password: </label>
-                    <input type="password" class="form-control" name="password" id="password" />
+                    <input type="password" class="form-control" name="password" id="password" required/>
                 </div>
 
                 <div class="form-group" >
                     <label for="conPass">Confirm Password: </label>
-                    <input type="password" class="form-control" name="conPass" id="conPass" onchange="confirmPassword()"/>
+                    <input type="password" class="form-control" name="conPass" id="conPass" onchange="confirmPassword()" required/>
                 </div>
 
                 <div class="form-group">
                     <label for="team">Team: </label>
-                    <select class="form-control" name="favTeam" id="team" >
+                    <select class="form-control" name="favTeam" id="team" required >
+                        <option></option>
                         <?php
                             $result = Team::findAll();
                             foreach($result as $team) {

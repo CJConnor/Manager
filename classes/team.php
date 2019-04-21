@@ -14,7 +14,6 @@ public $goal_difference;
 public $logo;
 public $subs;
 
-public static $tableName = "premier_league";
 public static $columns = ['id', 'position', 'teams', 'plays', 'wins', 'draws', 'losses', 'points', 'goal_difference', 'logo', 'subs'];
 
 public function __construct($args=[]) {
@@ -33,25 +32,49 @@ public function __construct($args=[]) {
     
 }
 
-public static function getTeam($id) {
 
-    $sql = "SELECT * FROM premier_league WHERE id = '$id'";
-    $result = System::findBySql($sql);
-    $num_rows = $result->num_rows;
 
-    if($num_rows > 0) {
+public static function getTeams($path) {
+
+    $data = self::getJsonFile($path);
+
+    $count = count($data);
+
+    if($count > 0) {
 
         $object_array = "";
         
-        while($rows = $result->fetch_assoc()) {
-            $object_array = self::init($rows);
+        foreach($data as $row) {
+            $object_array[] = self::init($row);
         }
 
-        #$result->free;
         
     }
 
     return $object_array;
+}
+
+public static function getTeam($id, $path) {
+
+    $data = self::getJsonFile($path);
+
+    $count = count($data);
+
+    if($count > 0) {
+
+        $object_array = "";
+        
+        foreach($data as $row) {
+            if($row->id == $id) {
+                $object_array = self::init($row);
+            }
+        }
+        
+    }
+
+
+    return $object_array;
+
 }
 
 
