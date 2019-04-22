@@ -19,7 +19,7 @@
     else
         echo("error");
 
-    $_SESSION['userid'] = $user;
+    $_COOKIE['userid'] = $user;
 
     
 ?>

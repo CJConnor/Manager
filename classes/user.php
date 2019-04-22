@@ -64,7 +64,9 @@
 
         if($count > 0) {
 
-          $return = 1;
+          $row = $result->fetch_assoc();
+
+          $return = $row['id'];
 
         } else {
 

@@ -138,12 +138,27 @@
 
           public static function getJsonFile($url) {
 
-            $result = file_get_contents($url);
+            $result = self::getFile($url);
 
             $json = json_decode($result);
 
             return $json;
 
+          }
+
+          public static function getFile($url) {
+
+            $result = file_get_contents($url);
+
+            return $result;
+
+          }
+
+          public static function overWriteFile($url, $content) {
+
+            $overwrite = file_put_contents($url, $$content);
+
+            return $overwrite;
           }
 
           public static function copyFile($sourceFile, $newFileLocation, $filename) {
@@ -152,19 +167,14 @@
 
             $copy = copy($sourceFile, $newFile);
 
-            if ($copy) {
-
+            if ($copy)
               return $filename;
-
-            } else {
-
+            else
               return "error";
-
-            }
       
           }
 
-          public static function deleteFle($path) {
+          public static function deleteFile($path) {
 
             return unlink($path);
             

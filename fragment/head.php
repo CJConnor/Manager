@@ -17,5 +17,7 @@
       <?php include("classes/dbconnect.php");?>
       <?php include("classes/system.php");?>
       <?php include("classes/team.php");?>
+      <?php include("classes/user.php");?>
+      <?php include("fragment/login/loginCheck.php");?>
 
     </head>

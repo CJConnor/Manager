@@ -7,7 +7,7 @@
     <div class="row">
         <button class="btn btn-primary col-sm-6">Play Next Game!!!</button>
         <div class="col-sm-4"></div>
-        <img src="_assets/images/tlogos/Arsenal.png" style="height: 120px; text-align: center;" />
+        <img src="_assets/images/tlogos/<?=$team->logo;?>" style="height: 120px; text-align: center;" />
     </div>
     <br />
     <div class="row">

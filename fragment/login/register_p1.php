@@ -33,7 +33,7 @@
                     <select class="form-control" name="favTeam" id="team" required >
                         <option></option>
                         <?php
-                            $result = Team::findAll();
+                            $result = Team::getTeams("_assets/javascript/master/premier_league.json");
                             foreach($result as $team) {
 
                                 $name = $team->teams;

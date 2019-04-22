@@ -1,6 +1,8 @@
 <?php
 
-include_once"../classes/dbconnect.php";
+include("../../classes/dbconnect.php");
+include("../../classes/system.php");
+include("../../classes/user.php");
 
 $username = $_POST['username'];
 $password = $_POST['password'];
@@ -8,20 +10,17 @@ $password = $_POST['password'];
 $username = DB::getCon()->escape_string($username);
 $password = DB::getCon()->escape_string($password);
 
-$sql = "SELECT * FROM users WHERE username = '$username' && password = '$password'";
-$result = DB::getCon()->query($sql);
-$count = $result->num_rows;
+$query = "username = '$username' AND password = '$password'";
 
-if($count == 1) {
+$check = User::checkIfUserExists($query);
 
-  $row = $result->fetch_assoc();
-  $id = $row['id'];
+if($check != 0) {
 
-  setcookie("userid", $id, time() + 3200, "/");
+  setcookie("userid", $check, time() + 3200, "/");
 
   echo "success";
 
-}else {
+} else {
 
   echo "failed";
   
