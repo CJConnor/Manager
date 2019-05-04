@@ -18,6 +18,8 @@
       <?php include("classes/system.php");?>
       <?php include("classes/team.php");?>
       <?php include("classes/user.php");?>
+      <?php include("classes/lineup.php");?>
+      <?php include("classes/players.php");?>
       <?php include("fragment/login/loginCheck.php");?>
 
     </head>

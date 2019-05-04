@@ -8,8 +8,12 @@
             <h2>Game</h2>
             <br>
             <?php
-                $teamid = $user->favTeam;
-                $team   = Team::getTeam($teamid, "_assets/javascript/master/premier_league.json");
+                $teamid  = $user->favTeam;
+                $path    = "_assets/javascript/tables/" . $user->tableFile;
+                $teams   = Team::getTeams("_assets/javascript/master/premier_league.json"); 
+                $team    = Team::getTeam($teamid, $teams);
+                $lineup  = Players::getPlayers($teamid, $path);
+                $players = Players::getAllPlayers($path)
 
             ?>
             <?php include("fragment/gameDashboard/tab-nav.html"); ?>
@@ -18,5 +22,15 @@
 
 
     </body>
+
+    <script>
+
+        function gameButton() {
+
+            return window.location.href = 'game.php';
+
+        }
+
+    </script>
 
 <html>

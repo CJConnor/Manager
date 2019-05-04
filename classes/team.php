@@ -38,6 +38,8 @@ public static function getTeams($path) {
 
     $data = self::getJsonFile($path);
 
+    $data = $data->teams;
+
     $count = count($data);
 
     if($count > 0) {
@@ -54,19 +56,17 @@ public static function getTeams($path) {
     return $object_array;
 }
 
-public static function getTeam($id, $path) {
+public static function getTeam($id, $teams) {
 
-    $data = self::getJsonFile($path);
-
-    $count = count($data);
+    $count = count($teams);
 
     if($count > 0) {
 
         $object_array = "";
         
-        foreach($data as $row) {
-            if($row->id == $id) {
-                $object_array = self::init($row);
+        foreach($teams as $team) {
+            if($team->id == $id) {
+                $object_array = $team;
             }
         }
         

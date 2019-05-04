@@ -1,11 +1,8 @@
-<?php 
-    $teams = Team::getTeams("_assets/javascript/master/premier_league.json"); 
-?>
 <div id="home" class="container tab-pane active"><br>
     <h3>HOME</h3>
     <br />
     <div class="row">
-        <button class="btn btn-primary col-sm-6">Play Next Game!!!</button>
+        <button onclick="gameButton();" class="btn btn-primary col-sm-6"><h1>Play Next Game!!!</h1></button>
         <div class="col-sm-4"></div>
         <img src="_assets/images/tlogos/<?=$team->logo;?>" style="height: 120px; text-align: center;" />
     </div>
