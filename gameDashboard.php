@@ -10,7 +10,7 @@
             <?php
                 $teamid  = $user->favTeam;
                 $path    = "_assets/javascript/tables/" . $user->tableFile;
-                $teams   = Team::getTeams("_assets/javascript/master/premier_league.json"); 
+                $teams   = Team::getTeams($path); 
                 $team    = Team::getTeam($teamid, $teams);
                 $lineup  = Players::getPlayers($teamid, $path);
                 $players = Players::getAllPlayers($path)

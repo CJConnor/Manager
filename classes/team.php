@@ -44,7 +44,7 @@ public static function getTeams($path) {
 
     if($count > 0) {
 
-        $object_array = "";
+        $object_array = [];
         
         foreach($data as $row) {
             $object_array[] = self::init($row);

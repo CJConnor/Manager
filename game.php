@@ -2,12 +2,12 @@
 
     <body>
 
-        <?php include("fragment/game/getInfo.php"); ?>
+        <?php include("fragment/nav.php"); ?>
 
         <div class="container">
             <div class="row">
 
-                <table class="table table-striped col-sm-4">
+                <table class="table table-striped col-sm-4" style="display: none;">
                     <thead>
                         <tr>
                             <th colspan="3"><?=$team1->teams?></th>
@@ -19,24 +19,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php
-                            foreach($lineup1 as $player) {
-                                ?>
-                                <tr>
-                                    <td><?=$player->name?></td>
-                                    <td><?=$player->position?></td>
-                                    <td><?=Team::getTeam($player->team, $teams)->teams;?></td>
-                                </tr>
-                                <?php
-                            }
-                        ?>
+                        
+                        
                     </tbody>
                 </table>
                 <div class="col-sm-4"></div>
-                <table class="table table-striped col-sm-4">
+                <table class="table table-striped col-sm-4" style="display: none;">
                     <thead>
                         <tr>
-                            <th colspan="3"><?=$team2->teams?></th>
+                            <th colspan="3"></th>
                         </tr>
                         <tr>
                             <th>Name</th>
@@ -45,23 +36,22 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php
-                            foreach($lineup2 as $player) {
-                                ?>
-                                <tr>
-                                    <td><?=$player->name?></td>
-                                    <td><?=$player->position?></td>
-                                    <td><?=Team::getTeam($player->team, $teams)->teams;?></td>
-                                </tr>
-                                <?php
-                            }
-                        ?>
+                        
                     </tbody>
                 </table>
                 
 
             </div>
-        </div>                      
+        </div>    
+
+        <?php include("fragment/game/tm.php"); ?>
+        
+        <script>
+            $(document).ready(function(){
+                $("#tm").modal({backdrop: 'static', keyboard: false});
+            });
+        </script>
+
     </body>
 
 </html>

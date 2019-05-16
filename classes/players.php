@@ -99,27 +99,29 @@ class Players extends System {
 
     }
 
-    // public static function getPlayer($id) {
+    public static function getPlayer($id, $team) {
 
-    //     $sql = "SELECT * FROM players WHERE id = '$id'";
-    //     $result = System::findBySql($sql);
-    //     $num_rows = $result->num_rows;
+        $count = count($team);
 
-    //     if($num_rows > 0) {
+        if($count > 0 ) {
 
-    //         $object_array = "";
-            
-    //         while($rows = $result->fetch_assoc()) {
-    //             $object_array = self::init($rows);
-    //         }
+            $object_array = "";
+            foreach($team as $player) {
+                if($player->id == $id) {
+                    $object_array = parent::init($player);
+                    break;
+                }
+            }
 
-    //         #$result->free;
-            
-    //     }
+        } else {
 
-    //     return $object_array;
+            exit("Query failed");
 
-    // }
+        }
+      
+        return $object_array;
+
+    }
 
     public static function displayValue($value) {
 
