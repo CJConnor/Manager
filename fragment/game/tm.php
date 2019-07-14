@@ -1,76 +1,53 @@
-<modal class="modal fade" id="tm">
-    <div class="modal-dialog">
-      <div class="modal-content">
-      
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Pick Your Team</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        
-        <!-- Modal body -->
-        <div class="modal-body" >
-            
-          <div class="formBox col-sm-5">
-            Hi
-          </div>
+<div class="list col-sm-5">
+<?php
+    $teamId = $user->favTeam;
+    $file   = $user->tableFile;
+    $path   = "_assets/javascript/tables/" . $file;
 
-          <div class="col-sm-1">
-            Hello
-          </div>
+    $players = Players::getPlayers($teamId, $path);
 
-          <div class="list col-sm-4">
-            <?php
-              $teamId = $user->favTeam;
-              $file   = $user->tableFile;
-              $path   = "_assets/javascript/tables/" . $file;
+    $content = "";
 
-              $players = Players::getPlayers($teamId, $path);
+    foreach ($players as $player) {
 
-              $content = "";
+    $name = $player->name;
+    $position = $player->position;
+    $age = $player->age;
+    $moral = $player->moral;
+    $fpl = $player->fpl_points;
 
-              foreach ($players as $player) {
+    $content .= "<div class='row'>
+                    <table class='table'>
+                    <thead>
+                        <tr>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Moral</th>
+                        <th>Skill</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        <td>" . $name . "</td>
+                        <td>" . $age . "</td>
+                        <td>" . $moral . "</td>
+                        <td>" . $fpl . "</td>
+                        </tr>
+                    </tbody>
+                    </table>
 
-                $name = $player->name;
-                $position = $player->position;
-                $age = $player->age;
-                $moral = $player->moral;
-                $fpl = $player->fpl_points;
+                </div>";
 
-                $content .= "<div class='row'>
-                              <table class='table'>
-                                <thead>
-                                  <tr>
-                                    <th>Name</th>
-                                    <th>Age</th>
-                                    <th>Moral</th>
-                                    <th>Skill</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr>
-                                    <td>" . $name . "</td>
-                                    <td>" . $age . "</td>
-                                    <td>" . $moral . "</td>
-                                    <td>" . $fpl . "</td>
-                                  </tr>
-                                </tbody>
-                              </table>
+    }
+    echo $content;
+?>
+</div>
 
-                            </div>";
+<div class="col-sm-1">
 
-              }
-              echo $content;
-            ?>
-          </div>
+</div>
 
-        </div>
-        
-        <!-- Modal footer -->
-        <div class="modal-footer">
-            <button class="btn btn-primary" type="submit" onclick="submit(this);">Submit</button>
-        </div>
-        
-      </div>
-    </div>
-</modal>
+<div class="col-sm-5">
+ <img src='_assets/images/football-pitch.jpg'/>
+</div>
+       

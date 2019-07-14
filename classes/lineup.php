@@ -29,16 +29,6 @@
             $this->sk  = isset($args['SS']) ? $args['SS'] : 0;
 
         }
-        
-        public static function getLineup($team) {
-         
-            usort($team, function($a, $b) {
-                return = $a['fpl_points'] <=> $b['fpl_points'];
-            });
-            
-            
-            
-        }
 
         public static function getLineUp($team) {
 
@@ -81,8 +71,6 @@
             }
 
             $lineup1 = new LineUp($lineup);
-
-            #var_dump($lineup1);
 
             return $lineup1;
             

@@ -1,3 +1,6 @@
+/**
+ * Submit Login Form
+ */
 function submitLoginForm() {
 
   let username = document.getElementById("username").value;
@@ -11,12 +14,16 @@ function submitLoginForm() {
     function(data, status){
       if(data == 'success') {
 
+        //Hide Login Modal
+        $('#log_p1').fadeOut();
+
+        //Fire sweetalert
         Swal.fire({
           type: 'success',
-          title: 'yay',
-          text: `success`
+          title: 'Login Successful!!'
         });
 
+        //Redirect...
         setTimeout(function() {window.location.href = "gameDashboard.php" }, 2000);
 
       }else {
@@ -31,6 +38,9 @@ function submitLoginForm() {
   });
 }
 
+/**
+ * Confirms Password
+ */
 function confirmPassword() {
 
   let origPassword = $('#password');
@@ -47,6 +57,11 @@ function confirmPassword() {
   }
 
 }
+
+/**
+ * Submit function
+ * @param {Element} e 
+ */
 
 function submit(e) {
 
@@ -162,8 +177,13 @@ function submit(e) {
   $(`#reg_p${newNum}`).modal({backdrop: 'static', keyboard: false});
 
   form.id = "";
+
 }
 
+/**
+ * Sets Attribute
+ * @param {Chosen Attribute} value 
+ */
 function setBtn(value) {
   $('#attr').val(value); 
 }

@@ -42,9 +42,13 @@
                 
 
             </div>
+
+            <div class="row" >
+                <?php include("fragment/game/tm.php"); ?>
+            </div>
         </div>    
 
-        <?php include("fragment/game/tm.php"); ?>
+        
         
         <script>
             $(document).ready(function(){

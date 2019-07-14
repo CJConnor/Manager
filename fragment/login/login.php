@@ -4,8 +4,7 @@
       
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">Modal Heading</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Log in...</h4>
         </div>
         
         <!-- Modal body -->
