@@ -13,7 +13,7 @@
 
                 <div class="form-group">
                     <label for="username">Username: </label>
-                    <input type="text" class="form-control" name="username" id="username" required/>
+                    <input type="text" class="form-control" name="username" id="username" onkeyup="checkUsername();" required/>
                 </div>
 
 
@@ -24,7 +24,7 @@
 
                 <div class="form-group" >
                     <label for="conPass">Confirm Password: </label>
-                    <input type="password" class="form-control" name="conPass" id="conPass" onchange="confirmPassword()" required/>
+                    <input type="password" class="form-control" name="conPass" id="conPass" onchange="confirmPassword();" required/>
                 </div>
 
                 <div class="form-group">

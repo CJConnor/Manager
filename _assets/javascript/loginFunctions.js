@@ -59,6 +59,68 @@ function confirmPassword() {
 }
 
 /**
+ * Checks for duplicates
+ */
+function checkUsername() {
+
+    let username = $('#username').val();
+
+    $.get(`actions/login/checkUserName.php?u=${username}`, function(data) {
+
+        if (data != "") {
+
+            if (data == "fail") {
+
+                swal.fire({
+                    type: 'error',
+                    title: 'Oops...',
+                    text: 'Sorry, it appears the username has already been taken'
+                });
+
+                return "N";
+
+            }
+
+        } else {
+            return "N";
+        }
+
+    });
+
+}
+
+/**
+ * Checks for an existing email
+ */
+function checkEmail() {
+
+    let email = $('#email').val();
+
+    $.get(`actions/login/checkUserName.php?u=${email}`, function(data) {
+
+        if (data != "") {
+
+            if (data == "fail") {
+
+                swal.fire({
+                    type: 'error',
+                    title: 'Oops...',
+                    text: 'Sorry, it appears that email is already in use'
+                });
+
+                return "N";
+
+            }
+
+        } else {
+            return "N";
+        }
+
+    });
+
+}
+
+/**
  * Submit function
  * @param {Element} e 
  */
@@ -97,7 +159,13 @@ function submit(e) {
           }
 
           if(formId == "1") {
-              if (confirmPassword() == "N") {
+              if (confirmPassword() == "N" || checkUsername() == "N") {
+                  return false;
+              }
+          }
+
+          if(formId == "2") {
+              if(checkEmail() == "N") {
                   return false;
               }
           }
