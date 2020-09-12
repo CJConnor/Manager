@@ -8,7 +8,7 @@
         public $userid;
         public $date;
 
-        public static $tableName = "managers";
+        public static $tableName = "manager";
         public static $columns   = ["id", "name", "managerAttribute", "userid", "date"] ;
 
         public function __construct($args=[]) {

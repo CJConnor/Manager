@@ -7,7 +7,6 @@ class Fixtures extends System{
     public $away;
     public $score;
     public $datePlayed;
-    public $uid;
 
     public static $tableName = "fixtures";
     public static $columns = ['id', 'home', 'away', 'score', 'datePlayed', 'uid'];
@@ -19,35 +18,35 @@ class Fixtures extends System{
         $this->away = isset($args['away']) ? $args['away'] : "";
         $this->score = isset($args['score']) ? $args['score'] : "";
         $this->datePlayed = isset($args['datePlayed']) ? $args['datePlayed'] : "";
-        $this->uid = isset($args['uid']) ? $args['uid'] : "";
+
+    }
+
+    public static function getFixtures($file) {
+
+        $file_content = self::getJsonFile(__DIR__ . '/../_assets/javascript/tables/' . $file);
+
+        return $file_content->fixtures;
 
     }
 
 
-    public static function matchDates() {
+    public static function matchDates($file) {
 
-        /*$seasonStart = "2017-08-14";
-        $seasonEnd = "2018-05-13";
+        $seasonStart = "2017-08-14";
+        /*$seasonEnd = "2018-05-13";
         $amountOfGames = 38;*/
 
         $fixt = array();
 
-        $sql = "SELECT id FROM premier_league ORDER BY RAND()";
-        $result = DB::getCon()->query($sql);
-
+        $result = Team::getTeams('http://localhost/Projects/Manager/_assets/javascript/tables/' . $file);
+        
         $teamArray = array();
 
-        if($result->num_rows > 0) {
+        foreach($result as $row) :
+            array_push($teamArray, $row->id);
+        endforeach;
 
-            while($row = $result->fetch_assoc()) {
-
-                $id = $row['id'];
-
-                $teamArray[] = $id;
-
-            }
-
-        }
+        shuffle($teamArray);
 
         for($i = 0; $i < 2; $i++) {
 
@@ -63,9 +62,12 @@ class Fixtures extends System{
 
         }
 
+        shuffle($teamArray);
+        shuffle($fixt);
+
         $fixtCount = count($fixt);
 
-        for($i = 0; $i < 2; $i++) {
+        for($i = 0; $i < 1; $i++) {
 
             foreach($teamArray as $team) {
 
@@ -96,10 +98,29 @@ class Fixtures extends System{
             }
 
         }
-        
-    
 
-        return($fixt);
+        shuffle($fixt);
+
+        $date = $seasonStart;
+        $id = 0;
+
+        for ($i = 0; $i < $fixtCount; $i++) :
+            $date = date('Y-m-d', strtotime($date . " +5 weekdays"));
+            $fixt[$i]->datePlayed = $date;
+            $fixt[$i]->id = $id;
+
+            $id++;
+        endfor;
+
+        #echo __DIR__ . '../_assets/javascript/tables/' . $file;
+
+        $file_contents = self::getJsonFile('http://localhost/Projects/Manager/_assets/javascript/tables/' . $file);
+
+        $file_contents->fixtures = $fixt;
+
+        self::overWriteFile(__DIR__ . '/../_assets/javascript/tables/' . $file, json_encode($file_contents));
+        
+        return($file_contents);
 
     }
     

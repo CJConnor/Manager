@@ -1,6 +1,6 @@
 <?php
 
-  class User extends System {
+  class User {
   
     public $id;
     public $username;
@@ -15,26 +15,45 @@
     public $status;
     public $admin;
     
-    
-   
-    public static $tableName = "users";
-    public static $columns   = ['id', 'username', 'password', 'email', 'forename', 'surname', 'dob', 'age', 'favTeam', 'tableFile', 'status', 'admin'];
-    
-    public function __construct($args=[]) {
+    public function __construct($data=[]) {
       
-        $this->id        = isset($args['id']) ? $args['id'] : "";
-        $this->username  = isset($args['username']) ? $args['username'] : "";
-        $this->password  = isset($args['password']) ? $args['password'] : "";
-        $this->email     = isset($args['email']) ? $args['email'] : "";
-        $this->forename  = isset($args['forename']) ? $args['forename'] : "";
-        $this->surname   = isset($args['surname']) ? $args['surname'] : "";
-        $this->dob       = isset($args['dob']) ? $args['dob'] : "0000-00-00";
-        $this->age       = isset($args['age']) ? $args['age'] : "";
-        $this->favTeam   = isset($args['favTeam']) ? $args['favTeam'] : "";
-        $this->tableFile = isset($args['tableFile']) ? $args['tableFile'] : "";
-        $this->status    = isset($args['status']) ? $args['status'] : "Y";
-        $this->admin     = isset($args['admin']) ? $args['admin'] : 0;
-        
+      $db = new Database();
+
+      if (empty($data)) :
+          $db->query("SHOW columns FROM user");
+
+          foreach($db->resultSet() as $col) : 
+              @$this->{$col->Field} = "";
+          endforeach;
+
+      elseif (!isset($data['id'])) :
+          $db->query("SHOW columns FROM user");
+
+          foreach($db->resultSet() as $col) : 
+              @$this->{$col->Field} = $data[$col->Field];
+          endforeach;
+
+      elseif (isset($data['id'])) :
+          
+          $db->query("SELECT * FROM user WHERE id = :id LIMIT 1");
+          $db->bind(':id', $data['id']);
+          $db->execute();
+
+          $result = $db->single();
+
+          $this->id        = $result->id;
+          $this->username  = $result->username;
+          $this->password  = $result->password;
+          $this->forename  = $result->forename;
+          $this->surname   = $result->surname;
+          $this->dob       = $result->dob;
+          $this->age       = $result->age;
+          $this->favTeam   = $result->favTeam;
+          $this->tableFile = $result->tableFile;
+          $this->status    = $result->status;
+          $this->admin     = $result->admin;
+
+      endif;
       
     }
 		
@@ -45,7 +64,7 @@
         $masterFile = "../../_assets/javascript/master/premier_league.json";
         $userFile   = "../../_assets/javascript/tables/";
 
-        User::copyFile($masterFile, $userFile, $fileName);
+        System::copyFile($masterFile, $userFile, $fileName);
 
         $args['tableFile'] = $fileName;
 
@@ -58,7 +77,7 @@
     
     public static function checkIfUserExists($query) {
 
-        $sql = "SELECT id FROM users WHERE $query";
+        $sql = "SELECT id FROM user WHERE $query";
         $result = DB::getCon()->query($sql);
         $count = $result->num_rows;
 

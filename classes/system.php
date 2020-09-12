@@ -156,7 +156,7 @@
 
           public static function overWriteFile($url, $content) {
 
-            $overwrite = file_put_contents($url, $$content);
+            $overwrite = file_put_contents($url, $content);
 
             return $overwrite;
           }

@@ -1,6 +1,6 @@
 <?php
 
-include("../../classes/dbconnect.php");
+include("../../classes/Database.php");
 include("../../classes/system.php");
 include("../../classes/user.php");
 

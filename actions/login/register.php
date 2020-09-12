@@ -6,20 +6,23 @@
     include("../../classes/system.php");
     include("../../classes/user.php");
     include("../../classes/manager.php");
+    include("../../classes/team.php");
+    include("../../classes/fixtures.php");
 
-    $user = User::createUser($_POST);
+    $userid = User::createUser($_POST);
 
-    $_POST['userid'] = $user;
+    $_POST['userid'] = $userid;
 
     $manager = new Manager($_POST);
     $manid   = $manager->save();
-    
-    if (!empty($user) && !empty($manid))
-        echo("success");
-    else
-        echo("error");
 
-    $_COOKIE['userid'] = $user;
+    $user = User::findById($userid);
+
+    Fixtures::matchDates($user->tableFile);
+    
+    echo !empty($user) && !empty($manid) ? "success" : "error";
+
+    setcookie('userid', $userid, time() + 86400);
 
     
 ?>

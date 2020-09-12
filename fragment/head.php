@@ -21,12 +21,13 @@
 
       <!-- PHP Includes -->
       <?php include(__DIR__ . "/vars.php");?>
-      <?php include(__DIR__ . "/../classes/dbconnect.php");?>
+      <?php include(__DIR__ . "/../classes/Database.php");?>
       <?php include(__DIR__ . "/../classes/system.php");?>
       <?php include(__DIR__ . "/../classes/team.php");?>
       <?php include(__DIR__ . "/../classes/user.php");?>
       <?php include(__DIR__ . "/../classes/lineup.php");?>
       <?php include(__DIR__ . "/../classes/players.php");?>
+      <?php include(__DIR__ . "/../classes/fixtures.php");?>
       <?php include(__DIR__ . "/login/loginCheck.php");?>
 
     </head>
